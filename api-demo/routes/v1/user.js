@@ -1,66 +1,49 @@
-import createRouter from "./base.js";
+import express from "express";
 
 import {
-  getUser,
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
+    createUser,
+    getUsers,
+    getUser,
+    updateUser,
+    deleteUser,
 } from "../../controllers/v1/user.js";
 
-import {
-  validatePostUser,
-  validatePutUser,
-} from "../../middleware/Validation.js";
+import authRoute from "../../middleware/authMiddleware.js";
 
-const userController = {
-  get: getUsers,
-  getById: getUser,
-  create: createUser,
-  update: updateUser,
-  delete: deleteUser,
-};
+const router = express.Router();
 
-const userRouter = createRouter(
-  userController,
-  validatePostUser,
-  validatePutUser,
-);
 
-export default userRouter;
+
 /**
  * @swagger
  * components:
  *   schemas:
- *     Institution:
+ *     User:
  *       type: object
  *       properties:
  *         id:
  *           type: string
  *           format: uuid
  *           example: "123e4567-e89b-12d3-a456-426614174000"
- *         name:
+ *         email:
  *           type: string
- *           example: "Institution Name"
- *         region:
+ *           example: "Username"
+ *         password:
  *           type: string
  *           example: "Region Name"
- *         country:
- *           type: string
- *           example: "Country Name"
  */
 
 /**
  * @swagger
- * /api/v1/users:
+ * /api/User:
  *   post:
- *     summary: Create a new user
+ *     summary: Create a new User
  *     tags:
  *       - User
  *     requestBody:
  *       required: true
  *       content:
- *          application/json:
+ *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/User'
  *     responses:
@@ -99,10 +82,11 @@ export default userRouter;
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
+router.post("/", createUser);
 
 /**
  * @swagger
- * /api/v1/users:
+ * /api/users:
  *   get:
  *     summary: Get all users
  *     tags:
@@ -140,11 +124,11 @@ export default userRouter;
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-
+router.get("/", getUsers);
 
 /**
  * @swagger
- * /api/v1/users/{id}:
+ * /api/users/{id}:
  *   get:
  *     summary: Get an user by id
  *     tags:
@@ -184,11 +168,11 @@ export default userRouter;
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-
+router.get("/:id", getUser);
 
 /**
  * @swagger
- * /api/v1/users/{id}:
+ * /api/users/{id}:
  *   put:
  *     summary: Update an user by id
  *     tags:
@@ -240,11 +224,11 @@ export default userRouter;
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-
+router.put("/:id", updateUser);
 
 /**
  * @swagger
- * /api/v1/users/{id}:
+ * /api/users/{id}:
  *   delete:
  *     summary: Delete an user by id
  *     tags:
@@ -288,3 +272,6 @@ export default userRouter;
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
+router.delete("/:id", deleteUser);
+
+export default router;

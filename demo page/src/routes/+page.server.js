@@ -33,7 +33,7 @@ export const actions = {
         cookies.set('token', token, {
             path: '/',
             httpOnly: true,
-            sameSite: 'strict' 
+            sameSite: 'strict'
         });
 
 		throw redirect(303, '/test'); // Send the user to the app once logged in
