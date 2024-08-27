@@ -1,13 +1,15 @@
 <script>
-    // Client-side JavaScript here
+    // The register page
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<!-- TODO make this form a component and reuse for login form -->
+<!-- The action attribute points to the root page server file (routes/+page.server.js), where there's a named register action
+     https://kit.svelte.dev/docs/form-actions#named-actions -->
+<form method="POST" action="/?/register">
+    <h2>Register</h2>
+    <label for="name">Name: </label>
+    <input type="text" id="name" name="name" required />
 
-<!-- A log in form with the option to register instead -->
-<form method="POST" action="?/login">
-    <h2>Log in</h2>
     <label for="email">Email: </label>
     <input type="email" id="email" name="email" required />
 
@@ -15,15 +17,12 @@
     <input type="password" id="password" name="password" required />
 
     <button type="submit">Submit</button>
-    <p>Don't have an account? <a href="/register">Register</a></p>
+    
+    <!-- My login form is on the home page -->
+    <p>Already have an account? <a href="/">Log in</a></p>
 </form>
 
-
 <style>
-    h2 {
-        margin: 0;
-    }
-
     form {
         display: flex;
         flex-direction: column;
