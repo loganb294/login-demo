@@ -3,12 +3,14 @@ import express from 'express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import userRoutes from './routes/v1/user.js';
-import authRoutes from "./routes/v1/authRoutes.js";
-import cors from "cors";
+import cors from "cors"
+
+
 
 // Create an Express application
 const app = express();
-app.use(cors());
+app.use(cors())
+
 
 // Use the PORT environment variable or 3000
 const PORT = process.env.PORT || 3000;
@@ -37,15 +39,18 @@ const swaggerOptions = {
 // Initialize swagger-jsdoc
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 // Use the routes module
 app.use('/api/User', userRoutes);
-app.use('/auth/login', userRoutes);
 
 // Setup swagger-ui after swaggerDocs is initialized
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+
+app.get('/products/:id', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
 
 // Start the server on port 3000
 app.listen(PORT, () => {

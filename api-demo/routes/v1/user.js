@@ -8,7 +8,6 @@ import {
     deleteUser,
 } from "../../controllers/v1/user.js";
 
-import authRoute from "../../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -26,6 +25,9 @@ const router = express.Router();
  *           format: uuid
  *           example: "123e4567-e89b-12d3-a456-426614174000"
  *         email:
+ *           type: string
+ *           example: "Email address"
+  *         name:
  *           type: string
  *           example: "Username"
  *         password:

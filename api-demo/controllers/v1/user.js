@@ -1,4 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
+
+
 
 const prisma = new PrismaClient();
 
@@ -9,9 +11,9 @@ const createUser = async (req, res) => {
         await prisma.user.create({
             // Data to be inserted
             data: {
+                email: req.body.email,
                 name: req.body.name,
-                region: req.body.region,
-                country: req.body.country,
+                password: req.body.password,
             },
         });
 
