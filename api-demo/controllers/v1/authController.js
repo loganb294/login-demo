@@ -73,6 +73,7 @@ const login = async (req, res) => {
      * Compare the given string, i.e., Pazzw0rd123, with the given
      * hash, i.e., user's hashed password
      */
+    
     const isPasswordCorrect = await bcryptjs.compare(password, user.password);
 
     if (!isPasswordCorrect)
