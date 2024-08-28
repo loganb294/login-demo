@@ -3,6 +3,7 @@ import express from 'express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import userRoutes from './routes/v1/user.js';
+import authRoutes from "./routes/v1/authRoutes.js"
 import cors from "cors"
 
 
@@ -41,14 +42,17 @@ const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
 // Use the routes module
-app.use('/api/User', userRoutes);
+app.use('/api/users', userRoutes);
+app.use("/auth", authRoutes);
+
 
 // Setup swagger-ui after swaggerDocs is initialized
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
-app.get('/products/:id', function (req, res, next) {
+app.get('/products/:id', function (_req, res) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
 })
 
